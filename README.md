@@ -8,3 +8,5 @@ Since we are using MacOS, it would be wise to tell git that we wish to never tra
 The command below will create a file named .gitignore_global with a line in it that specifies .DS_Store files to be ignored
 
 Lets see if it really works
+
+Third times a charm on Saturday
