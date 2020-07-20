@@ -1,7 +1,8 @@
-
-SELECT * FROM mysql.user;
-SELECT user, host FROM mysql.user;
-SELECT * FROM mysql.help_topic;
-SELECT help_topic_id, help_category_id, url FROM mysql.help_topic;
-
-
+show databases;
+use iris_db;
+select database();
+show create database iris_db;
+show databases;
+use albums_db;
+select database();
+show create database albums_db;
