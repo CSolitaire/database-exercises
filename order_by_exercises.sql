@@ -22,3 +22,27 @@ from `employees`
 where first_name in ('Irena','Vidya','Maya')
 order by last_name ASC, first_name ASC;
 
+-- 5. Update your queries for employees with 'E' in their last name to sort the results by their employee number. Your results should not change!
+select *
+from employees
+where last_name like "E%"
+order by emp_no;
+
+-- 6. Now reverse the sort order for both queries.
+select *
+from `employees`
+where first_name in ('Irena','Vidya','Maya')
+order by last_name DESC, first_name DESC;
+
+select *
+from employees
+where last_name like "E%"
+order by emp_no DESC;
+
+-- 7. Change the query for employees hired in the 90s and born on Christmas such that the first result is the oldest employee who was hired last. It should be Khun Bernini.
+select *
+from employees
+where hire_date like "199%-%%-%%"
+and birth_date like "%%%%-12-25"
+order by hire_date DESC;
+
