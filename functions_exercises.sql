@@ -1,5 +1,6 @@
 use employees;
 select database();
+select * from employees;
 
 -- Update your queries for employees whose names start and end with 'E'. Use concat() to combine their first and last name together as a single column named full_name.
 
@@ -44,4 +45,12 @@ from employees
 where hire_date > '1990' and hire_date <'2000'
 and birth_date like "%12-25"
 order by hire_date DESC;
+
+-- Find the smallest and largest salary from the salaries table.
+
+select *
+from salaries;
+
+select min(salary) as min_salary, max(salary) as max_salary
+from salaries;
 
