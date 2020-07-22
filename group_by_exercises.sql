@@ -34,3 +34,12 @@ from employees
 where last_name like 'e%e'
 group by first_name, last_name
 order by number_shared desc;
+
+-- 7. Update your query for 'Irena', 'Vidya', or 'Maya'. Use COUNT(*) and GROUP BY to find the number of employees for each gender with those names
+
+select count(`emp_no`) first_name, gender
+from `employees`
+where first_name = 'Irena' 
+or first_name = 'Vidya' 
+or first_name = 'Maya'
+group by gender;
