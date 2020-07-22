@@ -61,7 +61,7 @@ order by emp_no DESC;
 -- 7. Change the query for employees hired in the 90s and born on Christmas such that the first result is the oldest employee who was hired last. It should be Khun Bernini.
 select *
 from employees
-where hire_date like "199%-%%-%%"
-and birth_date like "%%%%-12-25"
+where hire_date > '1990' and hire_date < '2000'
+and birth_date like "%12-25"
 order by hire_date DESC;
 
