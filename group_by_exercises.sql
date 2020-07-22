@@ -60,8 +60,8 @@ order by number_shared desc;
 
 -- Bonus: How many duplicate usernames are there?
 
-select username_count as username_count  
-from   (select
+select sum(number_shared) as total_duplicates
+From (select count(*) as number_shared
        , concat(lower(substring(first_name,1,1))
        , lower(substring(last_name,1,4))
        , "_"
@@ -70,5 +70,5 @@ from   (select
 from employees
 group by username
 order by number_shared desc)
-where username_count >1
-as temp; 
+as temp_table
+where number_shared > 1;
