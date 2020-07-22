@@ -43,3 +43,17 @@ where first_name = 'Irena'
 or first_name = 'Vidya' 
 or first_name = 'Maya'
 group by gender;
+
+-- 8. Recall the query the generated usernames for the employees from the last lesson. Are there any duplicate usernames?
+
+select   count(*) as number_shared
+       , concat(lower(substring(first_name,1,1))
+       , lower(substring(last_name,1,4))
+       , "_"
+       , substring(birth_date,6,2)
+       , substring(birth_date,3,2)) as username
+from employees
+group by username
+order by number_shared desc;
+
+-- Yes, there appears to be duplicate usernames
