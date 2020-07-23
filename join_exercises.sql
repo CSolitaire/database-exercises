@@ -21,11 +21,11 @@ from users
 right join roles on users.role_id = roles.id;
 
 -- 3.Although not explicitly covered in the lesson, aggregate functions like count can be used with join queries. Use count and the appropriate join type to get a list of roles along with the number of users that has the role. Hint: You will also need to use group by in the query.
-select users.name as user_name, roles.name as role_name, count(*) as count
+select roles.name, count(users.name) as total_users_with_role
 from users
 left join roles on users.role_id = roles.id
-group by role_name
-order by count;
+group by 1;
+
 
 
 -- for next session
