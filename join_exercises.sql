@@ -53,7 +53,8 @@ where dm.to_date > curdate() and e.gender = 'F';
 
 -- 4.Find the current titles of employees currently working in the Customer Service department.
 
-select t.title, t.emp_no, d.dept_name
+select t.title, d.dept_name, count(t.emp_no) as count
 from titles as t
 join dept_emp as dp on dp.emp_no = t.emp_no and dp.to_date > curdate()
-join departments as d on d.dept_no = d.dept_no and d.dept_no = 'd009';
+join departments as d on d.dept_no = d.dept_no and d.dept_no = 'd009'
+group by t.title;
