@@ -23,3 +23,17 @@ SHOW INDEXES FROM employees;
 # primary key emp_no, no unique key
 # index = employees (table not value)
 
+describe employees_with_departments;
+SHOW INDEXES FROM employees_with_departments;
+# primary key = 0 and no unique key
+# Index = 0
+
+describe salaries;
+SHOW INDEXES FROM salaries;
+# primary key = emp_no and from_date
+# Index = salaries (table not value)
+
+describe titles;
+SHOW INDEXES FROM titles;
+# primary key = emp_no, title, from_date
+# Index = (table name not value)
