@@ -27,6 +27,26 @@ left join roles on users.role_id = roles.id
 group by roles.name;
 
 
+-- 1.Employees Database
 
--- for next session
 use employees;
+
+-- 2.Using the example in the Associative Table Joins section as a guide, write a query that shows each department along with the name of the current manager for that department.
+
+select concat(e.first_name, ' ', e.last_name) as full_name, d.dept_name
+from employees as e
+join dept_manager as dm
+on dm.emp_no = e.emp_no
+join departments as d
+on d.dept_no = dm.dept_no
+where dm.to_date > curdate();
+
+-- 3.Find the name of all departments currently managed by women.
+
+select concat(e.first_name, ' ', e.last_name) as full_name, d.dept_name, e.gender as gender
+from employees as e
+join dept_manager as dm
+on dm.emp_no = e.emp_no
+join departments as d
+on d.dept_no = dm.dept_no
+where dm.to_date > curdate() and e.gender = 'F';
