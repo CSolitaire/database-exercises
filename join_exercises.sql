@@ -50,3 +50,10 @@ on dm.emp_no = e.emp_no
 join departments as d
 on d.dept_no = dm.dept_no
 where dm.to_date > curdate() and e.gender = 'F';
+
+-- 4.Find the current titles of employees currently working in the Customer Service department.
+
+select t.title, t.emp_no, d.dept_name
+from titles as t
+join dept_emp as dp on dp.emp_no = t.emp_no and dp.to_date > curdate()
+join departments as d on d.dept_no = d.dept_no and d.dept_no = 'd009';
