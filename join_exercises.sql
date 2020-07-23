@@ -24,7 +24,7 @@ right join roles on users.role_id = roles.id;
 select roles.name, count(users.name) as total_users_with_role
 from users
 left join roles on users.role_id = roles.id
-group by 1;
+group by roles.name;
 
 
 
