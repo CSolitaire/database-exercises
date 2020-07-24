@@ -42,3 +42,16 @@ where ee.emp_no in (
 	where dm.to_date > now()
 	and e.gender = 'f'
 );
+
+-- 5. Find all the employees that currently have a higher than average salary.	
+	
+SELECT e.first_name,
+        e.last_name,
+        s.salary
+FROM employees AS e
+JOIN salaries AS s ON s.emp_no = e.emp_no AND s.to_date > CURDATE()
+WHERE s.salary >
+    (SELECT AVG(salary)
+    FROM salaries);
+
+
