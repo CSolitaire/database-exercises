@@ -32,3 +32,13 @@ where not ee.emp_no in (
 );
 
 -- 4.Find all the current department managers that are female.
+
+select ee.first_name, ee.last_name 
+from employees as ee
+where ee.emp_no in (
+	select e.emp_no
+	from employees as e
+	join dept_manager as dm on dm.emp_no = e.emp_no
+	where dm.to_date > now()
+	and e.gender = 'f'
+);
