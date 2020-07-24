@@ -21,6 +21,7 @@ from users
 right join roles on users.role_id = roles.id;
 
 -- 3.Although not explicitly covered in the lesson, aggregate functions like count can be used with join queries. Use count and the appropriate join type to get a list of roles along with the number of users that has the role. Hint: You will also need to use group by in the query.
+
 select roles.name, count(users.name) as total_users_with_role
 from users
 left join roles on users.role_id = roles.id
@@ -59,3 +60,13 @@ join employees as e on t.emp_no = e.emp_no
 join dept_emp as dp on dp.emp_no = e.emp_no 
 where dp.dept_no = 'd009' and dp.to_date > curdate() and t.to_date > curdate()
 group by t.title;
+
+-- 5.Find the current salary of all current managers.
+
+select concat(e.first_name, ' ', e.last_name) as full_name, d.dept_name, s.salary as salary
+from employees as e
+join dept_manager as dm on dm.emp_no = e.emp_no
+join departments as d on d.dept_no = dm.dept_no
+join salaries as s on s.emp_no = e.emp_no
+where dm.to_date > curdate() and s.to_date > curdate()
+order by d.dept_name;
