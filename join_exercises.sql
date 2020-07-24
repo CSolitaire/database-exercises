@@ -100,3 +100,15 @@ join salaries as s on s.emp_no = dp.emp_no and s.to_date > curdate()
 group by s.salary
 order by s.salary desc
 limit 1;
+
+-- 9. Which current department manager has the highest salary?
+
+select max(concat(e.first_name, ' ', e.last_name)) as full_name, max(s.salary), d.dept_name
+from employees as e
+join dept_manager as dm on dm.emp_no = e.emp_no and dm.to_date > curdate()
+join dept_emp as dp on dp.emp_no = e.emp_no and dp.to_date > curdate()
+join departments as d on d.dept_no = dp.dept_no and d.dept_no = 'd001'
+join salaries as s on s.emp_no = dp.emp_no and s.to_date > curdate()
+group by s.salary
+order by s.salary desc
+limit 1;
