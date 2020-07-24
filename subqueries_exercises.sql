@@ -9,8 +9,6 @@ where hire_date in (
 	where emp_no = 101010
 );
 
--- 2.Find all the titles held by all employees with the first name Aamod.
-
 -- 2. Find all the titles held by all employees with the first name Aamod
 
 select title, count(*)
@@ -23,5 +21,14 @@ where emp_no in (
 group by title;
 
 -- 3.How many people in the employees table are no longer working for the company?
+
+select count(ee.emp_no) as employees_no_longer_employeed
+from employees as ee
+where not ee.emp_no in (
+	select e.emp_no
+	from employees as e
+	join dept_emp as dp on dp.emp_no = e.emp_no and dp.to_date > now()
+	join titles as t on t.emp_no = e.emp_no and t.to_date > now()
+);
 
 -- 4.Find all the current department managers that are female.
