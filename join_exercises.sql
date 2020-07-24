@@ -70,3 +70,12 @@ join departments as d on d.dept_no = dm.dept_no
 join salaries as s on s.emp_no = e.emp_no
 where dm.to_date > curdate() and s.to_date > curdate()
 order by d.dept_name;
+
+-- 6.Find the number of employees in each department.
+
+select d.dept_no, d.dept_name, count(dp.emp_no) as count
+from departments as d
+join dept_emp as dp on dp.dept_no = d.dept_no
+where dp.to_date > curdate()
+group by d.dept_no, d.dept_name
+order by dept_name;
