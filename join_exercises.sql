@@ -114,3 +114,25 @@ order by s.salary desc
 limit 1;
 
 Exercise Complete
+
+-- 10.Bonus
+
+SELECT CONCAT(employees.first_name, " ", employees.last_name) AS "Employee Name", departments.dept_name AS "Department Name", manager_name AS "Manager Name"
+FROM employees
+    JOIN dept_emp
+        ON employees.emp_no = dept_emp.emp_no
+    JOIN departments
+        ON dept_emp.dept_no = departments.dept_no
+    JOIN dept_manager
+        ON dept_manager.dept_no = dept_emp.dept_no
+-- The following subquery is a table that connects the current department manager name to their emp_no and its alias is manager_names
+
+    JOIN(
+        SELECT employees.emp_no, CONCAT(employees.first_name, " ", employees.last_name) AS manager_name
+            FROM employees
+                JOIN dept_manager
+                    ON employees.emp_no = dept_manager.emp_no AND dept_manager.to_date > curdate()
+    ) AS manager_names
+WHERE dept_manager.to_date > curdate()
+    AND dept_emp.to_date > curdate()
+    AND dept_manager.emp_no = manager_names.emp_no;
