@@ -89,3 +89,14 @@ join dept_emp as dp on dp.dept_no = d.dept_no and dp.to_date > curdate()
 join salaries as s on s.emp_no = dp.emp_no and s.to_date > curdate()
 group by d.dept_name desc
 limit 1;
+
+-- 8. Who is the highest paid employee in the Marketing department?8.
+
+select max(concat(e.first_name, ' ', e.last_name)) as full_name, max(s.salary)
+from employees as e
+join dept_emp as dp on dp.emp_no = e.emp_no and dp.to_date > curdate()
+join departments as d on d.dept_no = dp.dept_no and d.dept_no = 'd001'
+join salaries as s on s.emp_no = dp.emp_no and s.to_date > curdate()
+group by s.salary
+order by s.salary desc
+limit 1;
