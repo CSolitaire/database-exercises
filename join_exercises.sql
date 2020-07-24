@@ -112,3 +112,5 @@ join salaries as s on s.emp_no = dp.emp_no and s.to_date > curdate()
 group by s.salary
 order by s.salary desc
 limit 1;
+
+Exercise Complete
