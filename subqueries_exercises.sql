@@ -11,6 +11,16 @@ where hire_date in (
 
 -- 2.Find all the titles held by all employees with the first name Aamod.
 
+-- 2. Find all the titles held by all employees with the first name Aamod
+
+select title
+from titles
+where emp_no in ( 
+	select emp_no
+	from employees
+	where first_name = 'Aamod'
+);
+
 -- 3.How many people in the employees table are no longer working for the company?
 
 -- 4.Find all the current department managers that are female.
