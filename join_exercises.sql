@@ -79,3 +79,13 @@ join dept_emp as dp on dp.dept_no = d.dept_no
 where dp.to_date > curdate()
 group by d.dept_no, d.dept_name
 order by dept_name;
+
+
+-- 7.Which department has the highest average salary? Hint: Use current not historic information.
+
+select max(d.dept_name), avg(s.salary)
+from departments as d
+join dept_emp as dp on dp.dept_no = d.dept_no and dp.to_date > curdate()
+join salaries as s on s.emp_no = dp.emp_no and s.to_date > curdate()
+group by d.dept_name desc
+limit 1;
