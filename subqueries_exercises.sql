@@ -56,35 +56,17 @@ WHERE s.salary >
 
 -- 6. How many current salaries are within 1 standard deviation of the highest salary? (Hint: you can use a built in function to calculate the standard deviation.) What percentage of all salaries is this?
 
--- good formula for max salary
-select max(salary)
-from salaries
-where salaries.to_date > curdate();
-
--- good formula for sd
-select stddev(salary)
-from salaries
-where salaries.to_date > curdate();
-
--- formula for the difference between max and 1 sd
-
-select *
-from (
-	select (max(salary) - stddev(salary))
-	from salaries
-	where salaries.to_date > curdate() 
-)  as max_salary;
-
--- not full complete but closer...
-
-select ss.emp_no, count(*)
-from salaries as ss
-where ss.salary > (
+select count(e.emp_no) as emp_sal_greater_than_one_sd_above_max
+from employees as e
+join salaries as s on s.emp_no = e.emp_no
+where s.to_date > curdate()
+and salary > (
 	select (max(s.salary) - stddev(s.salary))
 	from salaries as s
-	where s.to_date > curdate() 
-)	group by emp_no
+)
 ;
+
+
 
 
 
