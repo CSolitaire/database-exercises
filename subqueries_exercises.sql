@@ -68,16 +68,21 @@ and salary > (
 
 -- What percentage of all salaries is this?
 
-select format
-	((select count(s.salary) as
-	  salaries_above_ave
-	  from salaries as s
-	  where s.salary >= ((select max(s.salary) from salaries) - (select std(s.salary) from salaries))
-	  and s.to_date > now())
-	  /
-	  (select count(ss.salary)
-	  from salaries as ss), 7)
-	  as percent_of_salaries;
+select 
+(
+(select count(salary) from salaries where salary between ((select max(salary) from salaries) 
+-
+(select stddev(salary) from salaries)
+)   
+and 
+(select max(salary) from salaries)
+	and to_date > now()
+) 
+/ 
+(select count(salary) from salaries where to_date > now()	
+)
+* 100
+) as percent_of_salaries;
 	
 
 
