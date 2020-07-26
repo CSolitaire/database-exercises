@@ -75,5 +75,16 @@ from (
 	where salaries.to_date > curdate() 
 )  as max_salary;
 
+-- not full complete but closer...
+
+select ss.emp_no, count(*)
+from salaries as ss
+where ss.salary > (
+	select (max(s.salary) - stddev(s.salary))
+	from salaries as s
+	where s.to_date > curdate() 
+)	group by emp_no
+;
+
 
 
