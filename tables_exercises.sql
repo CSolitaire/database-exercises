@@ -14,3 +14,6 @@ describe titles;
 # Date Types: employees, titles, salaries, dept_manager
 #The employee table lists employee number and name, the department table lists department number and department name. They are linked together in the employees_with_departments table
 #SHOW CREATE TABLE dept_manager;
+
+
+-- 
