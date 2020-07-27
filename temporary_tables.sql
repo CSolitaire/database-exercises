@@ -14,8 +14,25 @@ from employees_with_departments
 
      -- A. Add a column named full_name to this table. It should be a VARCHAR whose length is the sum of the lengths of the first name and last name columns
 
+alter table employees_with_departments add full_name 
+varchar(31)
+;
 
--- B. Update the table so that full name column contains the correct data
--- C. Remove the first_name and last_name columns from the table.
+describe employees_with_departments
+;
+
+     -- B. Update the table so that full name column contains the correct data
+ 
+update employees_with_departments set full_name = concat(first_name, ' ', last_name)
+;
+
+select *
+from employees_with_departments
+limit 5
+;
+
+     -- C. Remove the first_name and last_name columns from the table.
+
+     
 -- D. What is another way you could have ended up with this same table?
 
