@@ -86,29 +86,51 @@ limit 5
 
 -- 3.Find out how the average pay in each department compares to the overall average pay. In order to make the comparison easier, you should use the Z-score for salaries. 
 
-use darden_1032;
-
--- Find out how the average pay in each department compares to the overall average pay. In order to make the comparison easier, you should use the Z-score for salaries. In terms of salary, what is the best department to work for? The worst? 
-
-create temporary table e_num_det_name_salary as
-select e.emp_no, d.dept_name, s.salary
+create TEMPORARY table emps as
+select 
+e.*,
+s.salary,
+d.dept_name as department,
+d.dept_no
 from employees.employees as e
-join employees.salaries as s on s.emp_no = e.emp_no
-join employees.dept_emp as dp on dp.emp_no = e.emp_no
-join employees.departments as d on d.dept_no = dp.dept_no
-where s.to_date > now() and dp.to_date > now()
-order by d.dept_name
+join employees.salaries as s using(emp_no)
+join employees.dept_emp as de using(emp_no)
+join employees.departments as d using(dept_no)
 ;
 
-create temporary table customer_service as
-select avg(salary)
-from e_num_det_name_salary
-where dept_name = 'customer service'
-;
+select * from emps;
 
-select *
-from e_num_det_name_salary
-limit 10;
+alter table emps add mean_salary float;
+alter table emps add sd_salary float;
+alter table emps add z_salary float;
+
+select * from emps limit 50;
+
+select avg(salary) from emps;
+
+select stddev(salary) from emps;
+
+create temporary table salary_aggregates as
+select avg(salary) as mean,
+stddev(salary) as sd
+from emps;
+
+select * from salary_aggregates;
+
+update emps set mean_salary = (select mean from salary_aggregates);
+
+update emps set sd_salary = (select sd from salary_aggregates);
+
+update emps set z_salary = (salary - mean_salary) / sd_salary;
+
+select * from emps;
+
+select department, avg(z_salary) as s_salary
+from emps
+group by departments
+order by z_salary;
 
 
         -- 3a. In terms of salary, what is the best department to work for? The worst? 
+
+        -sales is best department in terms of salary, human resources seems to be worst
