@@ -33,6 +33,25 @@ limit 5
 
      -- C. Remove the first_name and last_name columns from the table.
 
-     
--- D. What is another way you could have ended up with this same table?
+alter table employees_with_departments drop column first_name
+;
+alter table employees_with_departments drop column last_name
+;
+
+select *
+from employees_with_departments
+limit 5
+;
+      -- D. What is another way you could have ended up with this same table?
+
+CREATE TEMPORARY TABLE employees_with_departments AS
+SELECT e.emp_no, concat(e.first_name, ' ', e.last_name) as full_name, de.dept_no, d.dept_name
+FROM employees.employees as e
+JOIN employees.dept_emp de USING(emp_no)
+JOIN employees.departments as d USING(dept_no)
+LIMIT 100;
+
+ -- 2. Create a temporary table based on the payment table from the sakila database.
+ -- Write the SQL necessary to transform the amount column such that it is stored as an integer representing the number of cents of the payment. For example, 1.99 should become 199.
+
 
