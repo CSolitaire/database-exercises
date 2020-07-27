@@ -86,7 +86,29 @@ limit 5
 
 -- 3.Find out how the average pay in each department compares to the overall average pay. In order to make the comparison easier, you should use the Z-score for salaries. 
 
+use darden_1032;
 
+-- Find out how the average pay in each department compares to the overall average pay. In order to make the comparison easier, you should use the Z-score for salaries. In terms of salary, what is the best department to work for? The worst? 
+
+create temporary table e_num_det_name_salary as
+select e.emp_no, d.dept_name, s.salary
+from employees.employees as e
+join employees.salaries as s on s.emp_no = e.emp_no
+join employees.dept_emp as dp on dp.emp_no = e.emp_no
+join employees.departments as d on d.dept_no = dp.dept_no
+where s.to_date > now() and dp.to_date > now()
+order by d.dept_name
+;
+
+create temporary table customer_service as
+select avg(salary)
+from e_num_det_name_salary
+where dept_name = 'customer service'
+;
+
+select *
+from e_num_det_name_salary
+limit 10;
 
 
         -- 3a. In terms of salary, what is the best department to work for? The worst? 
