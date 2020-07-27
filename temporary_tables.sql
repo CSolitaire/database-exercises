@@ -52,6 +52,41 @@ JOIN employees.departments as d USING(dept_no)
 LIMIT 100;
 
  -- 2. Create a temporary table based on the payment table from the sakila database.
- -- Write the SQL necessary to transform the amount column such that it is stored as an integer representing the number of cents of the payment. For example, 1.99 should become 199.
+
+show create table sakila.payment
+;
+
+create temporary table sakila_payment as
+select payment_id, customer_id, staff_id, rental_id, amount,
+payment_date, last_update
+from sakila.payment
+;
+
+select *
+from sakila_payment
+limit 5
+;
+
+        -- Write the SQL necessary to transform the amount column such that it is stored as an integer representing the number of cents of the payment. For example, 1.99 should become 199.
+
+ALTER TABLE sakila_payment ADD amount_v2 INT(50);
+
+UPDATE sakila_payment SET amount_v2 = amount * 100;
+
+ALTER TABLE sakila_payment MODIFY amount_v2 INT(50) AFTER amount;
+
+ALTER TABLE sakila_payment DROP COLUMN amount;
+
+ALTER TABLE sakila_payment CHANGE amount_v2 amount INT(50);
+
+select *
+from sakila_payment
+limit 5
+;
+
+-- 3.Find out how the average pay in each department compares to the overall average pay. In order to make the comparison easier, you should use the Z-score for salaries. 
 
 
+
+
+        -- 3a. In terms of salary, what is the best department to work for? The worst? 
