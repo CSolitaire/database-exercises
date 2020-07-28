@@ -40,3 +40,33 @@ from employees as e
 join dept_emp as dp using(emp_no)
 where dp.to_date > now()
 order by decade_born
+
+-- Bonus. What is the average salary for each of the following department groups: R&D, Sales & Marketing, Prod & QM, Finance & HR, Customer Service? 
+
+select 
+ah.dept_name, 
+ah.salary
+from 
+(
+select
+	d.dept_no,
+	d.dept_name,
+	s.salary,
+	s.emp_no,
+	case
+		when d.dept_name = 'Customer Service' then 'Customer Service' 	
+		when d.dept_name = 'Development' then 'Development'	
+		when d.dept_name = 'Finance' then 'Finance'
+		when d.dept_name = 'Human Resources' then 'Human Resources'
+		when d.dept_name = 'Marketing' then 'Marketing'
+		when d.dept_name = 'Production' then 'Production'
+		when d.dept_name = 'Quality Management' then 'Quality Management'
+		when d.dept_name = 'Research' then 'Research'
+		when d.dept_name = 'Sales' then 'Sales'
+		end as unique_departments
+from departments as d
+join dept_emp as dp using(dept_no)
+join salaries as s on s.emp_no = dp.emp_no
+where s.to_date > now() and dp.to_date > now()
+) as ah
+order by dh.dept_name;
