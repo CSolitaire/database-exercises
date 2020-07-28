@@ -25,3 +25,18 @@ select
 from employees as e
 order by e.last_name asc
 ;
+
+-- 3. How many employees were born in each decade? 
+SELECT
+	e.emp_no,
+	substring(e.birth_date, 1, 4),
+	case
+		when substring(e.birth_date, 1, 4) in ('1950','1951', '1952','1953','1954', '1955','1956','1957','1958','1959') then '50'
+		when substring(e.birth_date, 1, 4) in ('1960','1961', '1962','1963','1964', '1965','1966','1967','1968','1969') then '60'
+	    when substring(e.birth_date, 1, 4) in ('1970','1971', '1972','1973','1974', '1975','1976','1977','1978','1979') then '70'
+	    when substring(e.birth_date, 1, 4) in ('1980','1981', '1982','1983','1984', '1985','1986','1987','1988','1989') then '80'
+		end as emp_born_each_decade
+from employees as e
+join dept_emp as dp using(emp_no)
+where dp.to_date > now()
+order by emp_born_each_decade
