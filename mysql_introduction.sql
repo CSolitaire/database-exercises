@@ -6,3 +6,4 @@ show databases;
 use albums_db;
 select database();
 show create database albums_db;
+
